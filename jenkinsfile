@@ -1,4 +1,5 @@
-node{
+pipeline {
+  agent any
   stage('Clone Project')
   {
   git 'https://github.com/AshrafulalamRasel/swebacked-run'
