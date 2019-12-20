@@ -1,0 +1,12 @@
+node
+{
+stage('clone project')
+{
+git 'https://github.com/AshrafulalamRasel/swebacked-run'
+}
+  stage('Build Project')
+  {
+     sh 'mvn package'
+  }
+
+}
