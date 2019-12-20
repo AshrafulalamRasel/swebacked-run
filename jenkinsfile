@@ -1,10 +1,20 @@
-node{
-  stage('Clone Project')
-  {
-  git 'https://github.com/AshrafulalamRasel/swebacked-run'
-  }
-    stage('Build Project')
-  {
-     sh 'mvn package'
-  }
+pipeline {
+  agent any
+
+   stages {
+        stage('Build info') {
+            steps {
+                echo "Running build: ${env.BUILD_ID} on ${env.JENKINS_URL}"
+                git 'https://github.com/AshrafulalamRasel/swebacked-run'
+            }
+        }
+
+      stage('Build') {
+            steps {
+                echo 'Building..'
+                bat 'mvn package'
+            }
+        }
+
+     }
 }
