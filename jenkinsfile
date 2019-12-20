@@ -3,10 +3,10 @@ node{
   {
   git 'https://github.com/AshrafulalamRasel/swebacked-run'
   }
-stage('Build') {
-            steps {
-                echo 'Building..'
+  stage('Build') 
+  {
+          
                 sh "mvn package"
-            }
-        }
+            
+    }
 }
