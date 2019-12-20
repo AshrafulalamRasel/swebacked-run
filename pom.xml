@@ -39,11 +39,7 @@
         </dependency>
 
 
-        <dependency>
-            <groupId>com.chumbok</groupId>
-            <artifactId>testable-common</artifactId>
-            <version>${testable-common.version}</version>
-        </dependency>
+
 
         <dependency>
             <groupId>org.projectlombok</groupId>

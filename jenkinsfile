@@ -1,6 +1,7 @@
 pipeline {
   agent any
-  
+
+
    stages {
         stage('Build info') {
             steps {
@@ -8,13 +9,19 @@ pipeline {
                 git 'https://github.com/AshrafulalamRasel/swebacked-run'
             }
         }
-  
+
       stage('Build') {
             steps {
                 echo 'Building..'
                 bat 'mvn package'
             }
         }
+
+
+     }
+}
+
         
      }
 }
+
