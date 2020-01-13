@@ -1,0 +1,52 @@
+pipeline {
+   agent any
+  tools {
+         maven 'Maven_3.5.2'
+     }
+      triggers {
+             // Every 10 min
+             pollSCM 'H/10 * * * *'
+         }
+    stages {
+         stage('Build info') {
+             steps {
+                 echo "Running build: ${env.BUILD_ID} on ${env.JENKINS_URL}"
+                 slackSend channel: 'jenkinsprofile1', message: "Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+                 git 'https://github.com/AshrafulalamRasel/JenkinsProfile'
+             }
+         }
+          stage('Code Checkout') {
+             steps {
+                 checkout([$class: 'GitSCM',
+                           branches: [[name: '*/master']],
+                           doGenerateSubmoduleConfigurations: false,
+                           extensions: [],
+                           submoduleCfg: [],
+                           userRemoteConfigs: [[credentialsId: 'Git',
+                                                url: 'https://github.com/AshrafulalamRasel/JenkinsProfile']]])
+             }
+         }
+
+         stage('Build') {
+             steps {
+               echo "Building.."
+                bat "mvn package"
+
+
+             }
+         }
+
+    }
+
+     post {
+            success {
+                slackSend channel: 'jenkinsprofile1', message: "Build SUCCESSFUL - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+            }
+            failure {
+                slackSend channel: 'jenkinsprofile1', message: "Build FAILED - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+            }
+            aborted {
+                slackSend channel: 'jenkinsprofile1', message: "Build ABORTED - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+            }
+     }
+ }
