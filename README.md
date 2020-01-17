@@ -2,7 +2,7 @@
 Java Spring- boot Rest Api With CRUD
 
 # Maven Project 
-# Hibernet
+# Hibernate
 # Runtime MYSQL 
 # JDK
 # Application Start with 33022 port
